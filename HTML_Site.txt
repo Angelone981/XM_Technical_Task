@@ -1,0 +1,85 @@
+<html lang="en"><!-- Created by Paul Hallett - http://phalt.co Maintained by Juriy Bura - https://github.com/juriy --><head>
+    <meta charset="utf-8">
+    <title >
+      XM 
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script id="twitter-wjs" src="https://platform.twitter.com/widgets.js"></script><script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-163610532-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-163610532-1');
+    </script>
+  <script charset="utf-8" src="https://platform.twitter.com/js/button.e7f9415a2e000feaab02c86dd5802747.js"></script></head>
+  <body cz-shortcut-listen="true">
+
+    <div class="container-fluid" style="margin-top: 60px;">
+      <div class="row center yellow">
+        <div align="center" class="jumbotron">
+            <h1>XM Test API </h1>
+            <p class="lead">by Angelos Elias</p>
+        </div>
+      </div>
+        
+
+<div class="row">
+          <hr>
+    <div class="col-sm-2 col-lg-2 col-md-2">
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8">
+      <h1 align="center">
+            Try it now!
+        </h1>
+        <div class="input-group">
+              <span class="input-group-addon">Submit request here</span>
+              <input id="interactive" type="text" class="form-control" placeholder="people/1/">
+              <span class="input-group-btn"><button onclick="interactive_call();return false;" class="btn btn-primary">request</button></span>
+            </div>
+        <p align="center">Result:</p>
+        <div class="well">
+          <pre id="interactive_output" class="pre-scrollable">
+          </pre>
+        </div>
+    </div>
+    <div class="col-sm-2 col-lg-2 col-md-2">
+    </div>
+</div>
+    
+<script>
+    function update(call){
+        jQuery('#interactive').val(call);
+        interactive_call();
+    }
+
+    function interactive_call(){
+        var content = jQuery('#interactive').val()
+        if(content == ''){
+            content = 'people/1/';
+        }
+        var call_url = 'api/' + content;
+        jQuery.ajax({
+      dataType: 'json',
+      url: call_url,
+      context: document.body
+    }).complete(function(data) {
+        if(data['status'] == 200){
+            var d = jQuery.parseJSON(data['responseText']);
+            jQuery('#interactive_output').text(JSON.stringify(d, null, '\t'));
+        }
+        else {
+            jQuery('#interactive_output').text(data['status'] + ' ' + data['statusText']);
+        }
+    });
+    }
+    </script>
+
+ </html>
